@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 class RoomController extends AbstractController
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
     public function __construct(EntityManagerInterface $em)
     {
 
@@ -93,7 +98,7 @@ class RoomController extends AbstractController
     /**
      * @param $idRoom
      * @Route("/room/{idRoom}", name="getRoomById")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function getRoomById($idRoom)
     {
