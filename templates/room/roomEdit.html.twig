@@ -10,13 +10,11 @@
 
 <div class="example-wrapper">
     
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary" type="submit">Modifier</button>
+{{ form_end(form) }}
 
-    This friendly message is coming from:
-    <ul>
-    {% for room in listRoom %}
-        <li>{{ room.id }} <a href="{{ path('editRoom', {'idRoom': room.id}) }}">edit</a> <a href="{{ path('deleteRoom', {'idRoom': room.id}) }}">delete</a></li>
-    {% endfor %}
-</ul>
 
 
 </div>

@@ -44,4 +44,32 @@ class RoomManager
         $room = $this->em->getRepository(Room::class)->find($idRoom);
         return $room;
     }
+
+        /**
+     * @param Room $room
+     */
+    public function GetInscriptionData(Room $newRoom){
+        
+        $this->em->persist($newRoom);
+        $this->em->flush();
+    }
+
+       /**
+     * @param $user
+     */
+    public function editRoom($room)
+    {
+        $this->em->persist($room);
+        $this->em->flush();
+    }
+
+    /**
+     * @param $user
+     */
+    public function deleteRoom($room)
+    {
+        $this->em->remove($room);
+        $this->em->flush();
+    }
+
 }
