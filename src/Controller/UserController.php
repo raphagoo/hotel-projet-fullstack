@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\BL\UserManager;
 use App\Entity\User;
-use App\Form\UserForm;
+use App\Form\UserFormAddType;
+use App\Form\UserFormEditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -51,7 +52,7 @@ class UserController extends AbstractController
     public function addUser(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
-        $form = $this->createForm(UserForm::class, $user);
+        $form = $this->createForm(UserFormAddType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
@@ -72,11 +73,17 @@ class UserController extends AbstractController
      */
     public function updateUser($idUser, Request $request, UserPasswordEncoderInterface $passwordEncoder){
         $user = $this->userManager->getUserById($idUser);
-        $form = $this->createForm(UserForm::class, $user);
+        $oldPassword = $this->userManager->getUserById($idUser)->getPassword();
+        $form = $this->createForm(UserFormEditType::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            if(!empty($form->get('password')->getData())) {
+                $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($password);
+            }
+            else{
+                $user->setPassword($oldPassword);
+            }
             $this->userManager->saveData($user);
             return $this->redirectToRoute('users');
         }

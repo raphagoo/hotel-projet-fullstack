@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Room;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\BL\RoomManager;
@@ -44,7 +45,8 @@ class RoomController extends AbstractController
 
     /**
      * @Route("/room/add", name="addroom")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
     public function getAddAgent(Request $request)
     {

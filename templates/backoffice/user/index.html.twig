@@ -1,7 +1,4 @@
 {% extends 'base.html.twig' %}
-{% block header %}
-    {% include 'include/header.html.twig' %}
-{% endblock %}
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
@@ -13,9 +10,9 @@
 <div class="example-wrapper">
     <ul>
         {% for user in users %}
-            <li>{{ user.email }} <a href="{{ path('userModify', {'idUser': user.id}) }}">Edit</a> </li>
+            <li>{{ user.email }} <a href="{{ path('userModify', {'idUser': user.id}) }}"><button class="btn btn-primary" type="button">Edit</button></a> </li>
         {% endfor %}
     </ul>
-    <a href="{{ path('userAdd') }}">Add user</a>
+    <a href="{{ path('userAdd') }}"><button class="btn btn-primary" type="button">Add user</button></a>
 </div>
 {% endblock %}

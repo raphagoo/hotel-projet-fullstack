@@ -15,10 +15,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class modifyUserForm
+ * Class userFormEditType
  * @package App\Forms
  */
-class UserForm extends AbstractType
+class UserFormEditType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -30,7 +30,7 @@ class UserForm extends AbstractType
             ->add('email', EmailType::class)
             ->add('name', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('password', PasswordType::class)
+            ->add('password', PasswordType::class, array('required' => false, 'empty_data' => ''))
             ->add('submit', SubmitType::class)
         ;
     }

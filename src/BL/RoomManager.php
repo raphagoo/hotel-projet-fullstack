@@ -9,7 +9,6 @@
 namespace App\BL;
 use App\Entity\Room;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpKernel\Tests\Controller;
 
 /**
  * Class AdminManager
@@ -41,12 +40,11 @@ class RoomManager
      */
     public function getRoomById($idRoom)
     {
-        $room = $this->em->getRepository(Room::class)->find($idRoom);
-        return $room;
+        return $this->em->getRepository(Room::class)->find($idRoom);
     }
 
-        /**
-     * @param Room $room
+    /**
+     * @param Room $newRoom
      */
     public function GetInscriptionData(Room $newRoom){
         
@@ -54,8 +52,8 @@ class RoomManager
         $this->em->flush();
     }
 
-       /**
-     * @param $user
+    /**
+     * @param $room
      */
     public function editRoom($room)
     {
@@ -64,7 +62,7 @@ class RoomManager
     }
 
     /**
-     * @param $user
+     * @param $room
      */
     public function deleteRoom($room)
     {

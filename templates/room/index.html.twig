@@ -38,7 +38,7 @@
     
       <td>{{ room.floor }}</td>
    
-      <td><a href="{{ path('editRoom', {'idRoom': room.id}) }}">edit</a> <a href="{{ path('deleteRoom', {'idRoom': room.id}) }}">delete</a></td>
+    <td><a href="{{ path('editRoom', {'idRoom': room.id}) }}"><button class="btn btn-primary" type="button">edit</button></a> <a href="{{ path('deleteRoom', {'idRoom': room.id}) }}"><button class="btn btn-danger" type="button">delete</button></a></td>
     
   
 </tr>
