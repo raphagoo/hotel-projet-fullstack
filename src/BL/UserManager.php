@@ -46,4 +46,14 @@ class UserManager
         $this->em->persist($data);
         $this->em->flush();
     }
+
+
+    /**
+     * @param $user
+     */
+    public function deleteRoom($user)
+    {
+        $this->em->remove($user);
+        $this->em->flush();
+    }
 }

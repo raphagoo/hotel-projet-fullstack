@@ -89,4 +89,16 @@ class UserController extends AbstractController
         }
         return $this->render('backoffice/user/modify.html.twig', ['form' => $form->createView()]);
     }
+
+    /**
+     * @Route("/backoffice/users/delete/{idUser}",name="deleteUser")
+     * @param $idUser
+     * @return RedirectResponse|Response
+     */
+    public function deleteUser($idUser)
+    {
+        $user = $this->userManager->getUserById($idUser);
+        $this->userManager->deleteRoom($user);
+        return $this->redirectToRoute('users');
+    }
 }

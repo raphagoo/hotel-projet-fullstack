@@ -3,11 +3,36 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
 
-    <h1>Register</h1>
+<style>
+    .form-control {
+
+        width:20%;
+        margin:auto;
+    }
+    .btn{
+
+        margin:auto;
+    }
+    
+    .container{
+         margin:auto;
+         width: 20%;
+    }
+    .register{
+        padding-top:2%;
+    }
+    .btn-success{
+        width: 120%
+    }
+</style>
+<h1>Register :</h1>
+<div class="example-wrapper" style="text-align:center;">
+
+
+   
+
+ 
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
@@ -15,8 +40,51 @@
             label: 'Password'
         }) }}
         {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn btn-success">Register</button>
-    {{ form_end(registrationForm) }}
+        
+
+        <p>User roles</p>
+        
+    
+    
+  <div class="container">
+  <div class="row">
+        
+        <div class="col">
+      <input class="form-check-input" type="checkbox" id="admin" name="admin">
+            <label class="form-check-label" for="admin">ADMIN</label>
+        </div>
+        <div class="col">
+        <input class="form-check-input" type="checkbox" id="user" name="user">
+        <label class="form-check-label" for="user">USER</label>
+        </div>
+    </div>
+    </div>
+        
+    
+      
+
+        
+        <div class="container register">
+  <div class="row">
+        
+        <div class="col">
+     <button type="submit" class="btn btn-success">Register</button>
+        </div>
+        <div class="col">
+        {{ form_row(registrationForm.agreeTerms) }}
+        </div>
+    </div>
+    </div>
+
+       
+
+         
+    {{ form_end(registrationForm) }} 
+
+     {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+</div>
 {% endblock %}
