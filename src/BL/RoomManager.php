@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: RAGOSTINI
- * Date: 17/12/2018
- * Time: 17:19
- */
 
 namespace App\BL;
 use App\Entity\Room;

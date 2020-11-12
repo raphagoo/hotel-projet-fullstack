@@ -33,7 +33,7 @@ class RoomController extends AbstractController
     private $roomManager;
 
     /**
-     * @Route("/room", name="GetListRoom")
+     * @Route("/rooms", name="GetListRoom")
      * @return Response
      */
     public function getRoomList()
@@ -97,17 +97,5 @@ class RoomController extends AbstractController
         return $this->redirectToRoute('GetListRoom');
     }
 
-    /**
-     * @param $idRoom
-     * @Route("/room/{idRoom}", name="getRoomById")
-     * @return Response
-     */
-    public function getRoomById($idRoom)
-    {
-        $room = $this->roomManager->getRoomById($idRoom);
-
-        return $this->render('room/room.html.twig', array(
-            "room" => $room
-        ));
-    }
+   
 }
