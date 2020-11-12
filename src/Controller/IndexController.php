@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
+
+    public $title = "Hotel Projet";
+
     /**
      * @Route("/", name="index")
      */
