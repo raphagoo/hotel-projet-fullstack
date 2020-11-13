@@ -42,7 +42,7 @@ class Room
     /**
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="rooms")
      */
-    private $supplement;
+    private $options;
 
     /**
      * @ORM\ManyToMany(targetEntity=Booking::class, inversedBy="rooms")
@@ -51,7 +51,7 @@ class Room
 
     public function __construct()
     {
-        $this->supplement = new ArrayCollection();
+        $this->options = new ArrayCollection();
         $this->booking = new ArrayCollection();
     }
 
@@ -111,23 +111,23 @@ class Room
     /**
      * @return Collection|Option[]
      */
-    public function getSupplement(): Collection
+    public function getOptions(): Collection
     {
-        return $this->supplement;
+        return $this->options;
     }
 
-    public function addSupplement(Option $supplement): self
+    public function addOption(Option $supplement): self
     {
-        if (!$this->supplement->contains($supplement)) {
-            $this->supplement[] = $supplement;
+        if (!$this->options->contains($supplement)) {
+            $this->options[] = $supplement;
         }
 
         return $this;
     }
 
-    public function removeSupplement(Option $supplement): self
+    public function removeOption(Option $supplement): self
     {
-        $this->supplement->removeElement($supplement);
+        $this->options->removeElement($supplement);
 
         return $this;
     }

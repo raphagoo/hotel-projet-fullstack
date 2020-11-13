@@ -48,7 +48,7 @@ class RoomController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function getAddAgent(Request $request)
+    public function addRoom(Request $request)
     {
 
         $room = new Room();
