@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -34,6 +35,50 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function updateRoleUser($role, $idUser)
+    {
+
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = '
+        UPDATE user u
+        SET u.roles = JSON_SET(u.roles, \'$[0]\', "ROLE_ADMIN")
+        WHERE u.id =  :idUser
+        ';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(['idUser' => $idUser]);
+//         $entityManager = $this->getEntityManager();
+
+        
+//         $query = $entityManager->createQuery(
+//            'UPDATE App\Entity\User u
+//             SET u.roles = JSON_SET(u.roles, \'$[0]\', "ROLE_ADMIN")
+//             WHERE u.id =  :idUser'
+
+//         )->setParameter('roles', $role)
+//         ->setParameter('idUser', $idUser);
+// dump($query);
+// die();
+//         $query->getResult();
+        // returns an array of Product objects
+        return true;
+    }
+
+    public function getRoleUser($role, $idUser)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+           'SELECT u.roles
+            FROM App\Entity\User u
+            WHERE u.id =  :idUser'
+
+        )->setParameter('idUser', $idUser);
+
+        // returns an array of Product objects
+        return true;
     }
 
     // /**

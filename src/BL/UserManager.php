@@ -8,7 +8,10 @@
 
 namespace App\BL;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class AdminManager
@@ -16,10 +19,17 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class UserManager
 {
+ 
+    /**
+     * @var ManagerRegistry
+     */
+    private $registry;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(ManagerRegistry $registry,EntityManagerInterface $em)
     {
         $this->em = $em;
+        $this->registry = $registry;
+        
     }
 
     /*** @var EntityManagerInterface l'interface entity manager* nécessaire à la manipulation des opérations en base*/
@@ -55,5 +65,25 @@ class UserManager
     {
         $this->em->remove($user);
         $this->em->flush();
+    }
+
+    /**
+     * @param $idUser
+     * @param $role
+     * @param Request $request
+     * @return PaginationInterface
+     */
+    public function updateUserRoleAdmin($role, $idUser, Request $request)
+    {
+         $repository = new UserRepository($this->registry);
+         $repository->updateRoleUser($role, $idUser, $request);
+         return true;
+    }
+
+    public function updateUserRoleUser($role, $idUser, Request $request)
+    {
+         $repository = new UserRepository($this->registry);
+         $repository->updateRoleUser($role, $idUser, $request);
+         return false;
     }
 }

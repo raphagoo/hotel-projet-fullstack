@@ -5,6 +5,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -31,6 +32,7 @@ class UserFormEditType extends AbstractType
             ->add('name', TextType::class)
             ->add('lastName', TextType::class)
             ->add('password', PasswordType::class, array('required' => false, 'empty_data' => ''))
+            ->add('role', CheckboxType::class, array('mapped' => false,'label' => 'Admin','required' => false ))
             ->add('submit', SubmitType::class)
         ;
     }

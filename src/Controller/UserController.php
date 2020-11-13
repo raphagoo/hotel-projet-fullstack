@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\UserFormAddType;
 use App\Form\UserFormEditType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,16 +21,21 @@ class UserController extends AbstractController
      * @var EntityManagerInterface
      */
     private $em;
-    /**
-     * @var UserManager
-     */
-    private $userManager;
 
-    public function __construct(EntityManagerInterface $em)
+
+     /**
+     * @var ManagerRegistry
+     */
+    private $registry;
+
+
+    public function __construct(EntityManagerInterface $em, ManagerRegistry $registry)
     {
 
-        $this->userManager = new UserManager($em);
+        
+        $this->userManager = new UserManager($registry,$em);
         $this->em = $em;
+        $this->registry = $registry;
     }
     /**
      * @Route("/backoffice/users", name="users")
@@ -76,7 +82,31 @@ class UserController extends AbstractController
         $oldPassword = $this->userManager->getUserById($idUser)->getPassword();
         $form = $this->createForm(UserFormEditType::class, $user);
         $form->handleRequest($request);
+
+        $role = json_encode(array("ROLE_USER"));
+
+        // if($form->get('role')->getData() === false){
+            
+        //     $form->get('role')->setData('false');
+
+        // }
+
         if($form->isSubmitted() && $form->isValid()){
+
+            
+            
+
+            if($form->get('role')->getData() == true){
+
+                
+                
+                 $role = json_encode(array("ROLE_ADMIN"));
+                 
+            
+
+            }
+               $this->userManager->updateUserRoleAdmin($role, $idUser, $request);
+            
             if(!empty($form->get('password')->getData())) {
                 $password = $passwordEncoder->encodePassword($user, $user->getPassword());
                 $user->setPassword($password);

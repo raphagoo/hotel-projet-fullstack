@@ -44,6 +44,11 @@ class Booking
      */
     private $rooms;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bill::class, inversedBy="booking")
+     */
+    private $bill;
+
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
@@ -125,6 +130,18 @@ class Booking
         if ($this->rooms->removeElement($room)) {
             $room->removeBooking($this);
         }
+
+        return $this;
+    }
+
+    public function getBill(): ?Bill
+    {
+        return $this->bill;
+    }
+
+    public function setBill(?Bill $bill): self
+    {
+        $this->bill = $bill;
 
         return $this;
     }
