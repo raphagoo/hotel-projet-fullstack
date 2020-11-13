@@ -31,7 +31,7 @@ class Option
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Room::class, mappedBy="supplement")
+     * @ORM\ManyToMany(targetEntity=Room::class, mappedBy="options")
      */
     private $rooms;
 
@@ -81,7 +81,7 @@ class Option
     {
         if (!$this->rooms->contains($room)) {
             $this->rooms[] = $room;
-            $room->addSupplement($this);
+            $room->addOption($this);
         }
 
         return $this;
@@ -90,7 +90,7 @@ class Option
     public function removeRoom(Room $room): self
     {
         if ($this->rooms->removeElement($room)) {
-            $room->removeSupplement($this);
+            $room->removeOption($this);
         }
 
         return $this;
